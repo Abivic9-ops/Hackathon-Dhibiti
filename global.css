@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+@import 'tailwindcss';
+@import 'uniwind';
+
+@import 'heroui-native/styles';
+
+/*
+ * Dhibiti design system.
+ *
+ * Dark mode is the primary theme; a light mode with the exact same brand hues
+ * (blue / teal / mint + the risk traffic-light) is curated alongside it.
+ * Every theme-dependent token is declared once per `@variant` block and mapped
+ * to the Tailwind color utilities through `@theme inline`, so `bg-ink`,
+ * `text-foreground`, `bg-brand-teal-soft` and friends re-resolve automatically
+ * when Uniwind switches between the `dark` and `light` themes — on native and web.
+ */
+
+@layer theme {
+  :root {
+    @variant light {
+      --background: oklch(0.972 0.005 265);
+      --foreground: oklch(0.17 0.026 265);
+
+      --raised: oklch(0.958 0.006 265);
+
+      --surface: oklch(1 0 0);
+      --surface-foreground: var(--foreground);
+      --surface-secondary: oklch(0.945 0.008 265);
+      --surface-secondary-foreground: var(--foreground);
+      --surface-tertiary: oklch(0.926 0.01 265);
+      --surface-tertiary-foreground: var(--foreground);
+
+      --overlay: oklch(0.972 0.005 265 / 92%);
+      --overlay-foreground: var(--foreground);
+      --backdrop: oklch(0% 0 0 / 45%);
+
+      --muted: oklch(0.47 0.02 265);
+
+      --default: oklch(0.945 0.008 265);
+      --default-foreground: var(--foreground);
+
+      --accent: oklch(0.66 0.12 172);
+      --accent-foreground: oklch(0.2 0.04 175);
+
+      --field-background: oklch(1 0 0);
+      --field-foreground: var(--foreground);
+      --field-placeholder: oklch(0.55 0.015 265);
+      --field-border: oklch(0.9 0.011 265);
+
+      --success: oklch(0.64 0.13 156);
+      --success-foreground: oklch(0.99 0 0);
+      --warning: oklch(0.74 0.15 75);
+      --warning-foreground: oklch(0.17 0.025 265);
+      --danger: oklch(0.62 0.19 25);
+      --danger-foreground: oklch(0.99 0 0);
+
+      --segment: oklch(0.945 0.008 265);
+      --segment-foreground: var(--foreground);
+
+      --border: oklch(0.9 0.011 265);
+      --separator: oklch(0.848 0.013 265);
+      --focus: var(--accent);
+      --link: oklch(0.53 0.15 258);
+
+      /* Brand — same hue family, deepened so text accents stay legible on white */
+      --brand-blue: oklch(0.53 0.15 258);
+      --brand-blue-soft: oklch(0.945 0.026 260);
+      --brand-teal: oklch(0.633 0.105 175);
+      --brand-teal-soft: oklch(0.94 0.04 175);
+      --brand-mint: oklch(0.66 0.12 175);
+      --brand-mint-soft: oklch(0.945 0.045 172);
+
+      /* Functional risk colors — vivid on light, soft backgrounds pale out */
+      --risk-red: oklch(0.62 0.19 25);
+      --risk-red-soft: oklch(0.952 0.022 25);
+      --risk-amber: oklch(0.74 0.15 75);
+      --risk-amber-soft: oklch(0.954 0.042 80);
+      --risk-green: oklch(0.64 0.13 156);
+      --risk-green-soft: oklch(0.953 0.04 158);
+      --risk-blue: oklch(0.53 0.15 258);
+      --risk-blue-soft: oklch(0.945 0.026 260);
+      --risk-grey: oklch(0.57 0.02 262);
+      --risk-grey-soft: oklch(0.952 0.006 262);
+    }
+
+    @variant dark {
+      --background: oklch(0.17 0.025 265);
+      --foreground: oklch(0.98 0.002 265);
+
+      --raised: oklch(0.19 0.027 265);
+
+      --surface: oklch(0.22 0.03 265);
+      --surface-foreground: var(--foreground);
+      --surface-secondary: oklch(0.26 0.03 264);
+      --surface-secondary-foreground: var(--foreground);
+      --surface-tertiary: oklch(0.3 0.032 263);
+      --surface-tertiary-foreground: var(--foreground);
+
+      --overlay: oklch(0.22 0.03 265);
+      --overlay-foreground: var(--foreground);
+      --backdrop: oklch(0% 0 0 / 55%);
+
+      --muted: oklch(0.66 0.025 265);
+
+      --default: oklch(0.26 0.03 264);
+      --default-foreground: var(--foreground);
+
+      --accent: oklch(0.74 0.13 172);
+      --accent-foreground: oklch(0.99 0 0);
+
+      --field-background: oklch(0.22 0.03 265);
+      --field-foreground: var(--foreground);
+      --field-placeholder: oklch(0.6 0.022 265);
+      --field-border: oklch(0.29 0.028 264);
+
+      --success: oklch(0.75 0.17 152);
+      --success-foreground: oklch(0.17 0.025 265);
+      --warning: oklch(0.81 0.16 75);
+      --warning-foreground: oklch(0.17 0.025 265);
+      --danger: oklch(0.68 0.21 19);
+      --danger-foreground: oklch(0.99 0 0);
+
+      --segment: oklch(0.3 0.032 263);
+      --segment-foreground: var(--foreground);
+
+      --border: oklch(0.29 0.028 264);
+      --separator: oklch(0.34 0.03 264);
+      --focus: var(--accent);
+      --link: oklch(0.6 0.17 258);
+
+      /* Brand */
+      --brand-blue: oklch(0.6 0.17 258);
+      --brand-blue-soft: oklch(0.29 0.06 260);
+      --brand-teal: oklch(0.74 0.13 172);
+      --brand-teal-soft: oklch(0.3 0.05 172);
+      --brand-mint: oklch(0.83 0.15 168);
+      --brand-mint-soft: oklch(0.28 0.06 168);
+
+      /* Functional risk colors (identical meaning on every screen) */
+      --risk-red: oklch(0.68 0.21 19);
+      --risk-red-soft: oklch(0.3 0.07 19);
+      --risk-amber: oklch(0.81 0.16 75);
+      --risk-amber-soft: oklch(0.31 0.06 75);
+      --risk-green: oklch(0.75 0.17 152);
+      --risk-green-soft: oklch(0.3 0.06 152);
+      --risk-blue: oklch(0.6 0.17 258);
+      --risk-blue-soft: oklch(0.29 0.06 260);
+      --risk-grey: oklch(0.65 0.023 262);
+      --risk-grey-soft: oklch(0.28 0.02 262);
+    }
+  }
+}
+
+/*
+ * Tailwind color utilities resolve to the semantic variables above, so every
+ * class flips with the active theme. Brand + risk hues are separate tokens so
+ * the accent identity and traffic-light colors can be tuned per mode.
+ */
+@theme inline {
+  /* Surfaces */
+  --color-ink: var(--background);
+  --color-ink-raised: var(--raised);
+
+  /* Brand */
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-soft: var(--brand-blue-soft);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-mint: var(--brand-mint);
+  --color-brand-teal-soft: var(--brand-teal-soft);
+  --color-brand-mint-soft: var(--brand-mint-soft);
+
+  /* Functional risk colors */
+  --color-risk-red: var(--risk-red);
+  --color-risk-red-soft: var(--risk-red-soft);
+  --color-risk-amber: var(--risk-amber);
+  --color-risk-amber-soft: var(--risk-amber-soft);
+  --color-risk-green: var(--risk-green);
+  --color-risk-green-soft: var(--risk-green-soft);
+  --color-risk-blue: var(--risk-blue);
+  --color-risk-blue-soft: var(--risk-blue-soft);
+  --color-risk-grey: var(--risk-grey);
+  --color-risk-grey-soft: var(--risk-grey-soft);
+}
+
+/* Typography — Poppins only, Regular / Medium / SemiBold */
+@theme {
+  --font-poppins: 'Poppins_400Regular';
+  --font-poppins-medium: 'Poppins_500Medium';
+  --font-poppins-semibold: 'Poppins_600SemiBold';
+}
+
+@source './node_modules/heroui-native/lib';
