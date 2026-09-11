@@ -35,10 +35,13 @@ const HOUSE_RULES: { icon: typeof KeyRound; title: string; body: string }[] = [
 export default function FamilyGuide() {
   const lessons = useStore((state) => state.lessons);
 
-  const guideLessonIds = ['lesson-family-talk', 'lesson-family-emergency', 'lesson-recourse'];
-  const guideLessons = guideLessonIds
-    .map((id) => lessons.find((lesson) => lesson.id === id))
-    .filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson));
+  const guideLessonCategories = ['family-emergency', 'scam-patterns', 'rights-recourse'] as const;
+  const picked = guideLessonCategories
+    .flatMap((category) => lessons.filter((lesson) => lesson.category === category))
+    .filter((lesson, index, all) => all.findIndex((item) => item.id === lesson.id) === index)
+    .slice(0, 3);
+  const guideLessons =
+    picked.length > 0 ? picked : lessons.filter((lesson, index, all) => all.indexOf(lesson) === index).slice(0, 3);
 
   return (
     <Screen>

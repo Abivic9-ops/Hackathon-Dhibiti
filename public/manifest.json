@@ -1,7 +1,7 @@
 {
   "name": "Dhibiti",
   "short_name": "Dhibiti",
-  "description": "Verify. Protect. Control. Your security and digital safety companion.",
+  "description": "Check numbers, links, and messages before you reply, click, or pay. Scam checks that work offline, built for Kenya.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

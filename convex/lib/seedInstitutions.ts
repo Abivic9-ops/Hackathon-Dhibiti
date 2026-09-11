@@ -1,0 +1,195 @@
+/**
+ * Curated Institution Directory seed data (backend brief Section 2.6/6).
+ *
+ * Every entry carries `verifiedAt`, `sourceUrl` (the official page the data was
+ * sourced from) and `websiteUrl` — the sourcing rule in Section 2.6 requires
+ * these so the founder can re-check any record later. `mapId` is left populated
+ * with a static text address / town only (Phase-2 live "near me" search is out
+ * of MVP scope, per Section 11.6).
+ *
+ * The content below is a starting, founder-curated set of well-known Kenyan
+ * institutions. It is meant to be maintained over time via the
+ * `institutionDirectory.upsertEntry` admin mutation (Section 14), not by
+ * editing this file in production.
+ */
+
+import type { Doc } from '../_generated/dataModel';
+
+export type InstitutionSeed = Omit<
+  Doc<'institutionDirectory'>,
+  '_id' | '_creationTime'
+> & {
+  /** Shortcode / search aliases (not part of the stored schema, used for matching). */
+  aliases: string[];
+};
+
+export const INSTITUTION_SEED: InstitutionSeed[] = [
+  {
+    officialName: 'KCB Bank Kenya',
+    category: 'bank',
+    subcategory: 'Commercial bank',
+    officialNumbers: ['+254711087000', '+254732087000', '0711087000'],
+    websiteUrl: 'https://kcbgroup.com',
+    poBox: '48400-00100 Nairobi',
+    physicalAddress: 'KCB Plaza, Kenyatta Avenue, Nairobi',
+    town: 'Nairobi',
+    mapId: 'KCB Plaza, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://kcbgroup.com/contact-us/',
+    aliases: ['kcb', 'kcb bank', 'kcb kenya'],
+  },
+  {
+    officialName: 'Equity Bank Kenya',
+    category: 'bank',
+    subcategory: 'Commercial bank',
+    officialNumbers: ['+254763000000', '0763000000'],
+    websiteUrl: 'https://equitybankgroup.com',
+    poBox: '75104-00200 Nairobi',
+    physicalAddress: 'Equity Centre, Hospital Road, Upper Hill, Nairobi',
+    town: 'Nairobi',
+    mapId: 'Equity Centre, Upper Hill, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://equitybankgroup.com/contact-us/',
+    aliases: ['equity', 'equity bank', 'equitel'],
+  },
+  {
+    officialName: 'Co-operative Bank of Kenya',
+    category: 'bank',
+    subcategory: 'Commercial bank',
+    officialNumbers: ['+254703027000', '0703027000'],
+    websiteUrl: 'https://co-opbank.co.ke',
+    poBox: '48231-00100 Nairobi',
+    physicalAddress: 'Co-operative Bank House, Haile Selassie Avenue, Nairobi',
+    town: 'Nairobi',
+    mapId: 'Co-operative Bank House, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.co-opbank.co.ke/contact-us/',
+    aliases: ['co-op bank', 'coop bank', 'cooperative bank', 'co-op'],
+  },
+  {
+    officialName: 'Absa Bank Kenya',
+    category: 'bank',
+    subcategory: 'Commercial bank',
+    officialNumbers: ['+254745811000', '0745811000'],
+    websiteUrl: 'https://absa.co.ke',
+    poBox: '30120-00100 Nairobi',
+    physicalAddress: 'Absa Plaza, Ralph Bunche Road, Nairobi',
+    town: 'Nairobi',
+    mapId: 'Absa Plaza, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.absa.co.ke/about-us/contact-us/',
+    aliases: ['absa', 'barclays', 'absa bank'],
+  },
+  {
+    officialName: 'NCBA Bank Kenya',
+    category: 'bank',
+    subcategory: 'Commercial bank',
+    officialNumbers: ['+254711051000', '0711051000'],
+    websiteUrl: 'https://ncbagroup.com',
+    poBox: '44599-00100 Nairobi',
+    physicalAddress: 'NCBA Centre, Mara & Ragati Road, Upper Hill, Nairobi',
+    town: 'Nairobi',
+    mapId: 'NCBA Centre, Upper Hill, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://ncbagroup.com/contact-us/',
+    aliases: ['ncba', 'ncba bank', 'cba', 'ncb'],
+  },
+  {
+    officialName: 'Stanbic Bank Kenya',
+    category: 'bank',
+    subcategory: 'Commercial bank',
+    officialNumbers: ['+254711071000', '0711071000'],
+    websiteUrl: 'https://stanbicbank.co.ke',
+    poBox: '30550-00100 Nairobi',
+    physicalAddress: 'Stanbic Bank Centre, Kenyatta Avenue, Nairobi',
+    town: 'Nairobi',
+    mapId: 'Stanbic Bank Centre, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.stanbicbank.co.ke/contact-us/',
+    aliases: ['stanbic', 'stanbic bank'],
+  },
+  {
+    officialName: 'DTB (Diamond Trust Bank)',
+    category: 'bank',
+    subcategory: 'Commercial bank',
+    officialNumbers: ['+254711031000', '0711031000'],
+    websiteUrl: 'https://dtbafrica.com',
+    poBox: '61711-00200 Nairobi',
+    physicalAddress: 'DTB Centre, Mombasa Road, Nairobi',
+    town: 'Nairobi',
+    mapId: 'DTB Centre, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.dtbafrica.com/contact/',
+    aliases: ['dtb', 'diamond trust bank'],
+  },
+  {
+    officialName: 'Safaricom',
+    category: 'telco',
+    subcategory: 'Telecommunications',
+    officialNumbers: ['+254722000100', '100', '0722000100'],
+    websiteUrl: 'https://safaricom.co.ke',
+    poBox: '66827-00800 Nairobi',
+    physicalAddress: 'Safaricom House, Waiyaki Way, Nairobi',
+    town: 'Nairobi',
+    mapId: 'Safaricom House, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.safaricom.co.ke/contact',
+    aliases: ['safaricom', 'm-pesa', 'mpesa', 'safaricom mpesa'],
+  },
+  {
+    officialName: 'Airtel Kenya',
+    category: 'telco',
+    subcategory: 'Telecommunications',
+    officialNumbers: ['+254740641000', '0730641000', '100'],
+    websiteUrl: 'https://airtel.co.ke',
+    poBox: '29392-00100 Nairobi',
+    physicalAddress: 'Teleposta Towers, Kenyatta Avenue, Nairobi',
+    town: 'Nairobi',
+    mapId: 'Teleposta Towers, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.airtel.co.ke/support/contact-us',
+    aliases: ['airtel', 'airtel money'],
+  },
+  {
+    officialName: 'KRA (Kenya Revenue Authority)',
+    category: 'government',
+    subcategory: 'Revenue authority',
+    officialNumbers: ['+254711099000', '0711099000', '0204999999'],
+    websiteUrl: 'https://kra.go.ke',
+    poBox: '48240-00100 Nairobi',
+    physicalAddress: 'Times Tower, Haile Selassie Avenue, Nairobi',
+    town: 'Nairobi',
+    mapId: 'Times Tower, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.kra.go.ke/contact-us',
+    aliases: ['kra', 'kenya revenue authority', 'itim'],
+  },
+  {
+    officialName: 'DCI (Directorate of Criminal Investigations)',
+    category: 'government',
+    subcategory: 'Law enforcement',
+    officialNumbers: ['+254800722203', '0800722203', '0800722203'],
+    websiteUrl: 'https://www.cid.go.ke',
+    poBox: '30070-00100 Nairobi',
+    physicalAddress: 'DCI Headquarters, Kiambu Road, Nairobi',
+    town: 'Nairobi',
+    mapId: 'DCI Headquarters, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://www.cid.go.ke/contacts/',
+    aliases: ['dci', 'criminal investigations', 'police'],
+  },
+  {
+    officialName: 'SHA (Social Health Authority, ex-NHIF)',
+    category: 'government',
+    subcategory: 'Health insurance',
+    officialNumbers: ['+254800720601', '0800720601'],
+    websiteUrl: 'https://sha.go.ke',
+    poBox: '30443-00100 Nairobi',
+    physicalAddress: 'NHIF Building, Ragati Road, Upper Hill, Nairobi',
+    town: 'Nairobi',
+    mapId: 'NHIF Building, Nairobi',
+    verifiedAt: Date.UTC(2026, 0, 15),
+    sourceUrl: 'https://sha.go.ke/contact-us/',
+    aliases: ['nhif', 'sha', 'social health authority'],
+  },
+];

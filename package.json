@@ -11,7 +11,8 @@
     "lint": "oxlint --type-aware --type-check",
     "lint:css": "node scripts/lint-css.mjs",
     "format": "oxfmt --write .",
-    "format:check": "oxfmt --check ."
+    "format:check": "oxfmt --check .",
+    "test": "tsx --test convex/lib/canonicalize.test.ts convex/lib/rulesEngine.test.ts"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "~0.4.2",
@@ -26,6 +27,7 @@
     "babel-preset-expo": "~57.0.9",
     "class-variance-authority": "~0.7.1",
     "clsx": "~2.1.1",
+    "convex": "^1.45.0",
     "expo": "~57.0.20",
     "expo-blur": "~57.0.2",
     "expo-constants": "~57.0.17",

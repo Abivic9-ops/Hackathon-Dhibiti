@@ -20,15 +20,20 @@ export default function SplashGate() {
   const router = useRouter();
   const hydrated = useStore((state) => state.hydrated);
   const onboarded = useStore((state) => state.onboarded);
+  const sessionToken = useStore((state) => state.sessionToken);
   const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     if (!hydrated) return undefined;
     const timer = setTimeout(() => {
-      router.replace(onboarded ? '/(tabs)' : '/onboarding/slides');
+      // A valid session is enough to reach the tabs; otherwise a completed
+      // onboarding is, and a first-time user lands on the slides. The 1.9s
+      // pause also lets the background `refreshSession` finish clearing any
+      // expired stored token before we route.
+      router.replace(sessionToken || onboarded ? '/(tabs)' : '/onboarding/slides');
     }, 1900);
     return () => clearTimeout(timer);
-  }, [hydrated, onboarded, router]);
+  }, [hydrated, sessionToken, onboarded, router]);
 
   return (
     <View className="bg-ink flex-1">
@@ -65,15 +70,12 @@ export default function SplashGate() {
           <Text variant="display" className="text-[42px] leading-[50px]">
             Dhibiti
           </Text>
-          <View className="flex-row gap-1.5 pt-1.5">
-            <Text variant="label" className="text-brand-mint">
-              Verify.
+          <View className="items-center gap-0.5 pt-1.5">
+            <Text variant="label" className="text-brand-mint text-center">
+              Check any message, call, or link
             </Text>
-            <Text variant="label" className="text-brand-blue">
-              Protect.
-            </Text>
-            <Text variant="label" className="text-foreground">
-              Control.
+            <Text variant="label" className="text-foreground text-center">
+              before it costs you anything.
             </Text>
           </View>
         </Animated.View>
@@ -85,10 +87,10 @@ export default function SplashGate() {
       >
         <View className="items-center">
           <Text variant="caption" className="text-foreground/70 text-center">
-            Your security.
+            Private by design.
           </Text>
           <Text variant="caption" className="text-foreground/70 text-center">
-            Our priority.
+            Works offline.
           </Text>
         </View>
         <DottedSpinner size={34} />

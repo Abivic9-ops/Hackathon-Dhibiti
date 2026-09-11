@@ -16,7 +16,7 @@ import Animated, {
 import { LinearGradient } from '@/components/ui/primitives/LinearGradient';
 import { AnimatedView } from '@/components/ui/primitives/AnimatedView';
 import { Text, type TextVariant } from '@/components/ui/Text';
-import { colors } from '@/lib/theme';
+import { colors, onGradient } from '@/lib/theme';
 
 /**
  * The app's motion vocabulary. Every flourish here is decorative only —
@@ -437,7 +437,7 @@ export function SuccessBurst({
           className="items-center justify-center rounded-full"
           style={{ width: size * 0.62, height: size * 0.62 }}
         >
-          <Icon color="#08231D" size={size * 0.32} strokeWidth={2} />
+          <Icon color={onGradient} size={size * 0.32} strokeWidth={2} />
         </LinearGradient>
       </PopIn>
     </View>

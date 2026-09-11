@@ -26,9 +26,10 @@ export default function AboutScreen() {
         <View className="px-5">
           <Card className="items-center gap-3">
             <GradientIconTile icon={ShieldCheck} size="lg" />
-            <Text variant="title">Verify. Protect. Control.</Text>
+            <Text variant="title">A second opinion before money moves</Text>
             <Text variant="caption" className="text-center">
-              Detect scams. Verify contacts. Protect your money and your family.
+              We check the number, link, or message at the exact moment you are about to reply,
+              click, or pay.
             </Text>
           </Card>
         </View>

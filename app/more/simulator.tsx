@@ -114,7 +114,7 @@ export default function ScamSimulator() {
   if (finished) {
     const share = () => {
       void Share.share({
-        message: `I scored ${correctCount}/${round.length} spotting scams on Dhibiti. Verify. Protect. Control.`,
+        message: `I scored ${correctCount}/${round.length} spotting scams on Dhibiti. It checks numbers, links, and messages before you act.`,
       });
     };
 

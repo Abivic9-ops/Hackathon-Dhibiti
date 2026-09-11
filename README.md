@@ -1,6 +1,6 @@
 # Dhibiti
 
-**Verify. Protect. Control.**
+**Check before you act.**
 
 Dhibiti is a scam-detection and digital-safety companion built for the Kenyan market. It helps you verify suspicious SMS messages, calls, QR codes, links, and phone numbers before money or personal details change hands — and it gives you tools to protect your family and community.
 
@@ -44,9 +44,20 @@ npm install
 # Copy the environment template and fill in your values
 cp .env.example .env
 
+# (Convex backend) authenticate and push function definitions
+npx convex login
+npx convex dev --once
+
 # Start the Expo development server
 npx expo start
 ```
+
+> **Convex**: the first `npx convex dev --once` writes `CONVEX_DEPLOYMENT`
+> (e.g. `dev:rare-ostrich-803`, no `https://` scheme) plus the `EXPO_PUBLIC_CONVEX_URL`
+> / `EXPO_PUBLIC_CONVEX_SITE_URL` values into the git-ignored `.env.local`. If you
+> set `CONVEX_DEPLOYMENT` by hand, use the bare deployment host (no scheme).
+> After pushing, run the one-time seeds to load the curated data:
+> `npx convex run institutionDirectory:seed` and `npx convex run educationSeed:seed`.
 
 Scan the QR code with Expo Go (Android) or the Camera app (iOS), or press `w` for web.
 
@@ -82,10 +93,20 @@ Environment variables live in `.env` (see `.env.example`):
 
 | Variable | Purpose |
 |---|---|
+| `CONVEX_DEPLOYMENT` | Convex deployment slug, no scheme (written automatically) |
+| `EXPO_PUBLIC_CONVEX_URL` | Convex HTTPS endpoint for the client (auto-written) |
+| `EXPO_PUBLIC_CONVEX_SITE_URL` | Convex site URL (auto-written) |
+| `EXPO_PUBLIC_BACKEND_URL` | Optional data-backend endpoint |
+| `EXPO_PUBLIC_BACKEND_ANON_KEY` | Optional data-backend anonymous key |
+| `EXPO_PLATFORM` | `native` to load native-only Expo plugins (e.g. `expo-dev-client`) |
 | `DHIBITI_APP_VERSION` | App version override |
 | `DHIBITI_IOS_BUNDLE_ID` | iOS bundle identifier (default `com.dhibiti.app`) |
 | `DHIBITI_ANDROID_PACKAGE` | Android package (default `com.dhibiti.app`) |
 | `DHIBITI_APP_STORE_APP_ID` | iOS App Store ID |
+
+> No secret keys or tokens are committed. Any API keys (SMS gateway, LLM, push
+> notifications, threat-intel) are read from Convex environment variables /
+> `.env` at runtime only — never hard-coded in source.
 
 ## Testing / Deployment
 

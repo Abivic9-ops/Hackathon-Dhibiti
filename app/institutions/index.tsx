@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Landmark, PhoneCall, Search, Smartphone } from 'lucide-react-native';
 import { Linking, View } from 'react-native';
 
@@ -21,6 +21,7 @@ const FILTERS: ChipOption<Filter>[] = [
   { value: 'bank', label: 'Banks' },
   { value: 'telco', label: 'Telcos' },
   { value: 'government', label: 'Government' },
+  { value: 'hospital', label: 'Hospitals' },
   { value: 'merchant', label: 'Merchants' },
 ];
 
@@ -28,6 +29,7 @@ const CATEGORY_LABEL: Record<VerifiedInstitution['category'], string> = {
   bank: 'Bank',
   telco: 'Mobile network',
   government: 'Government',
+  hospital: 'Hospital',
   merchant: 'Merchant',
 };
 
@@ -36,8 +38,15 @@ const dial = (phone: string) => void Linking.openURL(`tel:${phone.replace(/\s/g,
 /** Verified institution directory — the number you call, never the one that called you. */
 export default function InstitutionsScreen() {
   const institutions = useStore((state) => state.institutions);
+  const refreshInstitutions = useStore((state) => state.refreshInstitutions);
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
+
+  // Pull the curated directory from the backend once it is reachable; the
+  // seeded list stays as the offline fallback.
+  useEffect(() => {
+    void refreshInstitutions();
+  }, [refreshInstitutions]);
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase();

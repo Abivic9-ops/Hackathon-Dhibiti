@@ -1,6 +1,7 @@
 // oxlint-disable-next-line eslint-plugin-import/no-unassigned-import
 import '../global.css';
 
+import { ConvexProvider } from 'convex/react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   Poppins_400Regular,
@@ -27,6 +28,7 @@ import { initPostHog } from '@/lib/posthog';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { reportErrorToParent } from '@/lib/reportPreviewError';
 import { InstallPrompt } from '@/components/InstallPrompt';
+import { convex } from '@/lib/convex';
 import { colors, setThemeMode } from '@/lib/theme';
 import { useStore } from '@/lib/store';
 
@@ -157,7 +159,10 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
+  // The whole tree is under ConvexProvider when a backend is configured so
+  // screens can use reactive hooks; offline builds render without it and keep
+  // the seeded local state (the imperative client in `lib/store` still works).
+  const root = (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.ink }}>
       <HeroUINativeProvider config={{ devInfo: { stylingPrinciples: false } }}>
         {/* StatusBar's `style` prop is a text-style enum ('light' | 'dark' | 'auto'), not a RN style object. */}
@@ -215,4 +220,6 @@ export default function RootLayout() {
       </HeroUINativeProvider>
     </GestureHandlerRootView>
   );
+
+  return convex ? <ConvexProvider client={convex}>{root}</ConvexProvider> : root;
 }

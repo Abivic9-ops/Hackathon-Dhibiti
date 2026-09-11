@@ -2,10 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
- * Hook for managing AsyncStorage with state synchronization
- * @param key - The storage key
- * @param initialValue - Initial value if key doesn't exist
- * @returns [storedValue, setValue, removeValue, isLoading]
+ * AsyncStorage-backed state that mirrors one key and writes it through on
+ * every update; `removeValue` clears the key. Loading is surfaced so callers
+ * do not flash persisted values as fresh defaults.
  */
 export function useAsyncStorage<T>(
   key: string,

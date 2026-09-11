@@ -19,6 +19,33 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
     />
     <title>%WEB_TITLE%</title>
+    <meta
+      name="description"
+      content="Free scam checks for Kenya. Paste a message, phone number, Paybill, Till, link, or QR code before you reply, click, or pay. Works offline."
+    />
+    <link rel="canonical" href="https://dhibiti.app/" />
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dhibiti" />
+    <meta property="og:url" content="https://dhibiti.app/" />
+    <meta
+      property="og:title"
+      content="Dhibiti — scam checker for SMS, calls, links and QR codes in Kenya"
+    />
+    <meta
+      property="og:description"
+      content="Check a number, Paybill, Till, link, or message before you reply, click, or pay. Scam checks that work offline."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Dhibiti — scam checker for SMS, calls, links and QR codes in Kenya"
+    />
+    <meta
+      name="twitter:description"
+      content="Check a number, Paybill, Till, link, or message before you reply, click, or pay. Scam checks that work offline."
+    />
 
     <!-- Web app manifest — the install contract for Android/Chrome -->
     <link rel="manifest" href="/manifest.json" />
@@ -50,6 +77,35 @@
         flex: 1;
       }
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://dhibiti.app/#org",
+            "name": "Dhibiti",
+            "url": "https://dhibiti.app/",
+            "description": "Scam checker for Kenya."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://dhibiti.app/#web",
+            "url": "https://dhibiti.app/",
+            "name": "Dhibiti",
+            "publisher": { "@id": "https://dhibiti.app/#org" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://dhibiti.app/check/lookup?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>

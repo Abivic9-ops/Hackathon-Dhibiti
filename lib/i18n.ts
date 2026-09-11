@@ -74,10 +74,14 @@ const SW: Record<string, string> = {
   'Overall payment risk': 'Hatari ya malipo kwa ujumla',
 
   // Onboarding
-  'Verify. Protect. Control.': 'Hakikisha. Linda. Dhibiti.',
-  'Your security.': 'Usalama wako.',
-  'Our priority.': 'Kipaumbele chetu.',
   'Check before you act': 'Kagua kabla ya kutenda',
+  'Check any message, call, or link': 'Angalia ujumbe wowote, simu, au kiungo',
+  'before it costs you anything.': 'kabla halikugharimu chochote.',
+  'Private by design.': 'Faragha kwa muundo.',
+  'Works offline.': 'Hufanya kazi bila mtandao.',
+  'A second opinion before money moves': 'Rai ya pili kabla ya pesa kusogezwa',
+  'We check the number, link, or message at the exact moment you are about to reply, click, or pay.':
+    'Tunakagua namba, kiungo, au ujumbe hasa wakati unakaribia kujibu, kubofya, au kulipa.',
   'We check messages, calls, and QR codes for scams before you act.':
     'Tunakagua ujumbe, simu na misimbo QR kubaini utapeli kabla ya kutenda.',
   'Know who is really calling': 'Jua ni nani anayekupigia kwa kweli',

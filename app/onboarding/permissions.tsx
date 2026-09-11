@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { BellRing, Camera, Contact, MessageSquareText } from 'lucide-react-native';
-import { View } from 'react-native';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
 
 import { ActionBar, GhostButton, PrimaryButton } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { PrivacyNote } from '@/components/ui/Field';
+import { PrivacyNote, TextField } from '@/components/ui/Field';
 import { IconTile } from '@/components/ui/IconTile';
 import { Screen, ScreenHeader, ScreenScroll } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
@@ -52,8 +53,26 @@ const PERMISSIONS: {
 export default function PermissionsPrimer() {
   const router = useRouter();
   const setPermission = useStore((state) => state.setPermission);
+  const completeProfile = useStore((state) => state.completeProfile);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const grantAll = () => {
+  const nameReady = name.trim().length >= 2;
+
+  const allow = async () => {
+    if (!nameReady || saving) return;
+    setSaving(true);
+    setError(null);
+    try {
+      await completeProfile(name.trim(), email.trim() || undefined);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Could not save your profile.');
+      return;
+    } finally {
+      setSaving(false);
+    }
     for (const item of PERMISSIONS) setPermission(item.key, 'granted');
     router.push('/onboarding/family');
   };
@@ -61,35 +80,77 @@ export default function PermissionsPrimer() {
   return (
     <Screen>
       <ScreenHeader title="Why we ask" backFallback="/onboarding/otp" />
-      <ScreenScroll contentClassName="px-5 gap-4">
-        <View className="gap-2 pb-1">
-          <Text variant="title">Permissions, explained first</Text>
-          <Text variant="caption">
-            We explain every permission before your phone asks. You can allow them later in More →
-            Permissions, and Dhibiti still works without them.
-          </Text>
-        </View>
+      <KeyboardAvoidingView
+        className="flex-1"
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <ScreenScroll contentClassName="px-5 gap-4">
+          <View className="gap-2 pb-1">
+            <Text variant="title">Your name, please</Text>
+            <Text variant="caption">
+              Used so your family or group can see who shared an alert. You can change it later in
+              More → Profile.
+            </Text>
+          </View>
 
-        {PERMISSIONS.map((item) => (
-          <Card key={item.key} className="flex-row gap-3">
-            <IconTile icon={item.icon} color={item.color} />
-            <View className="flex-1 gap-1">
-              <Text variant="label">{item.title}</Text>
-              <Text variant="caption">{item.body}</Text>
-            </View>
-          </Card>
-        ))}
+          <TextField
+            label="Full name"
+            value={name}
+            onChangeText={setName}
+            placeholder="Amina Wanjiru"
+            autoCapitalize="words"
+            helper="At least two characters, so alerts identify you clearly."
+          />
+          <TextField
+            label="Email (optional)"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="you@example.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            helper="Used as a backup if you ever change your phone number."
+          />
 
-        <PrivacyNote>
-          Screenshots and pasted messages stay on your device by default. They only leave it if you
-          choose to submit a report, and personal details are removed first.
-        </PrivacyNote>
-      </ScreenScroll>
+          {error ? (
+            <Text variant="meta" className="text-risk-red">
+              {error}
+            </Text>
+          ) : null}
 
-      <ActionBar>
-        <PrimaryButton label="Allow and continue" onPress={grantAll} />
-        <GhostButton label="Decide later" onPress={() => router.push('/onboarding/family')} />
-      </ActionBar>
+          <View className="gap-2 pb-1 pt-2">
+            <Text variant="title">Permissions, explained first</Text>
+            <Text variant="caption">
+              We explain every permission before your phone asks. You can allow them later in More →
+              Permissions, and Dhibiti still works without them.
+            </Text>
+          </View>
+
+          {PERMISSIONS.map((item) => (
+            <Card key={item.key} className="flex-row gap-3">
+              <IconTile icon={item.icon} color={item.color} />
+              <View className="flex-1 gap-1">
+                <Text variant="label">{item.title}</Text>
+                <Text variant="caption">{item.body}</Text>
+              </View>
+            </Card>
+          ))}
+
+          <PrivacyNote>
+            Screenshots and pasted messages stay on your device by default. They only leave it if you
+            choose to submit a report, and personal details are removed first.
+          </PrivacyNote>
+        </ScreenScroll>
+
+        <ActionBar>
+          <PrimaryButton
+            label={saving ? 'Saving…' : 'Allow and continue'}
+            disabled={!nameReady}
+            loading={saving}
+            onPress={allow}
+          />
+          <GhostButton label="Decide later" onPress={() => router.push('/onboarding/family')} />
+        </ActionBar>
+      </KeyboardAvoidingView>
     </Screen>
   );
 }

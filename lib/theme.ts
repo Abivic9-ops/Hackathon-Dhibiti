@@ -65,6 +65,13 @@ export const brandGradient: readonly [string, string] = [
   palettes.dark.brandMint,
 ];
 
+/**
+ * Ink that stays legible on the CTA gradient. `colors.ink` flips to near-white
+ * in light mode and would vanish on the vivid teal fill, so glyphs painted on
+ * `brandGradient` use this fixed dark-ink instead of `colors.ink`.
+ */
+export const onGradient = '#08231D';
+
 let currentMode: ThemeMode = 'dark';
 const themeListeners = new Set<() => void>();
 

@@ -127,10 +127,19 @@ export type TrustedContact = {
 export type VerifiedInstitution = {
   id: string;
   name: string;
-  category: 'bank' | 'telco' | 'government' | 'merchant';
+  category: 'bank' | 'telco' | 'government' | 'merchant' | 'hospital';
   officialNumbers: string[];
   aliases: string[];
   note?: string;
+};
+
+/** User profile as returned by the Convex backend (auth + roles). */
+export type AuthUser = {
+  _id: string;
+  phone: string;
+  name: string;
+  email?: string | null;
+  roles: string[];
 };
 
 export type SharingLevel = 'alertsOnly' | 'withRecipient' | 'withAmount' | 'full';
@@ -220,6 +229,8 @@ export type PaymentLock = {
   startedAt: number;
   status: 'locked' | 'released' | 'overridden-by-admin';
   mandatory: boolean;
+  /** Server-side lock _id, when this lock was started on the backend. */
+  serverId?: string;
 };
 
 export type SafetyScoreEvent = {
@@ -270,6 +281,13 @@ export type PaymentDraft = {
   status: 'pending' | 'paid' | 'abandoned';
   paidNote?: string;
   createdAt: number;
+};
+
+/** A stand-in for a real camera QR scan while capture is simulated in this build. */
+export type QrSample = {
+  id: string;
+  label: string;
+  raw: string;
 };
 
 export type PermissionKey = 'contacts' | 'notifications' | 'camera' | 'sms';
