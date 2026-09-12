@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import { View } from 'react-native';
 
 import { LinearGradient } from '@/components/ui/primitives/LinearGradient';
-import { brandGradient, colors } from '@/lib/theme';
+import { brandGradient, colors, onGradient } from '@/lib/theme';
 import { cn } from '@/lib/utils';
 
 const SIZES = {
@@ -56,7 +56,7 @@ export function GradientIconTile({
       end={{ x: 1, y: 1 }}
       className={cn('items-center justify-center', dims.box, className)}
     >
-      <Icon color="#08231D" size={dims.icon} strokeWidth={2} />
+      <Icon color={onGradient} size={dims.icon} strokeWidth={2} />
     </LinearGradient>
   );
 }

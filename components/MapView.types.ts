@@ -184,28 +184,28 @@ export const DEFAULT_REGION: MapRegion = {
 export const DEFAULT_ZOOM = 12;
 
 export const MARKER_COLOR_HEX: Record<MarkerColor, string> = {
-  red: '#ef4444',
-  blue: '#2563eb',
-  green: '#16a34a',
-  orange: '#f97316',
+  red: '#FF4D5E',
+  blue: '#2E7DE1',
+  green: '#2ECC71',
+  orange: '#FFB020',
   yellow: '#eab308',
-  purple: '#a855f7',
+  purple: '#8892A0',
   cyan: '#06b6d4',
 };
 
 export const MAP_OVERLAY_DEFAULTS = {
   circle: {
-    fillColor: 'rgba(220, 38, 38, 0.12)',
-    strokeColor: '#dc2626',
+    fillColor: 'rgba(255, 77, 94, 0.12)',
+    strokeColor: '#FF4D5E',
     strokeWidth: 2,
   },
   polygon: {
-    fillColor: 'rgba(34, 197, 94, 0.18)',
-    strokeColor: '#16a34a',
+    fillColor: 'rgba(46, 204, 113, 0.18)',
+    strokeColor: '#2ECC71',
     strokeWidth: 2,
   },
   polyline: {
-    strokeColor: '#2563eb',
+    strokeColor: '#2E7DE1',
     strokeWidth: 3,
   },
 } as const;

@@ -13,15 +13,16 @@ import { Screen, ScreenHeader, ScreenScroll, SectionLabel } from '@/components/u
 import { Sheet } from '@/components/ui/Sheet';
 import { Text } from '@/components/ui/Text';
 import { LinearGradient } from '@/components/ui/primitives/LinearGradient';
-import { qrSamples } from '@/lib/seed';
+import { qrSamples } from '@/lib/static';
 import { useStore } from '@/lib/store';
 import { colors, useTheme, type ThemeMode } from '@/lib/theme';
 
 /** Subtle brand-tinted canvas behind the targeting frame, per theme. */
-const SCAN_BACKDROP: Record<ThemeMode, readonly [string, string]> = {
-  dark: ['#0D1220', '#0F1A2E'],
-  light: ['#E9EDF4', '#DCE9F4'],
-};
+function scanBackdrop(mode: ThemeMode): readonly [string, string] {
+  return mode === 'dark'
+    ? [colors.inkRaised, colors.surfaceSecondary]
+    : [colors.surfaceSecondary, colors.surfaceTertiary];
+}
 
 function scan(raw: string) {
   router.push({ pathname: '/check/processing', params: { type: 'qr', text: raw } });
@@ -104,7 +105,7 @@ export default function CheckQr() {
         <Stagger step={80} initialDelay={40}>
           <View className="border-border overflow-hidden rounded-[28px] border">
             <LinearGradient
-              colors={SCAN_BACKDROP[mode]}
+              colors={scanBackdrop(mode)}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               className="items-center justify-center px-6 py-8"

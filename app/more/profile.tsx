@@ -63,13 +63,29 @@ const TONE_COLOR: Record<'local' | 'shared' | 'never', string> = {
 /** Profile, auth methods and the itemised privacy statement. */
 export default function ProfileScreen() {
   const user = useStore((state) => state.user);
+  const authUser = useStore((state) => state.authUser);
+  const sessionToken = useStore((state) => state.sessionToken);
+  const logout = useStore((state) => state.logout);
   const circle = useStore((state) => state.circle);
   const checks = useStore((state) => state.checks);
   const clearHistory = useStore((state) => state.clearHistory);
   const [confirmClear, setConfirmClear] = useState(false);
   const [cleared, setCleared] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
 
   const me = circle.members.find((member) => member.userId === user.id);
+
+  const displayName = authUser?.name || user.name;
+  const displayPhone = authUser?.phone || user.phone;
+  const displayEmail = authUser?.email ?? user.email;
+
+  const signOut = async () => {
+    if (signingOut) return;
+    setSigningOut(true);
+    await logout();
+    setSigningOut(false);
+    router.replace('/onboarding/slides');
+  };
 
   return (
     <Screen>
@@ -80,7 +96,7 @@ export default function ProfileScreen() {
           <Card className="items-center gap-3">
             <IconTile icon={UserRound} color={colors.brandBlue} size="lg" />
             <View className="items-center gap-1">
-              <Text variant="heading">{user.name}</Text>
+              <Text variant="heading">{displayName}</Text>
               <Text variant="caption">{ROLE_LABEL[user.role]}</Text>
             </View>
           </Card>
@@ -92,16 +108,16 @@ export default function ProfileScreen() {
             <Card className="flex-row items-center gap-3">
               <IconTile icon={Smartphone} color={colors.brandTeal} />
               <View className="flex-1 gap-0.5">
-                <Text variant="label">{user.phone}</Text>
+                <Text variant="label">{displayPhone}</Text>
                 <Text variant="meta">Phone number · verified by one-time code</Text>
               </View>
             </Card>
             <Card className="flex-row items-center gap-3">
               <IconTile icon={Mail} color={colors.brandBlue} />
               <View className="flex-1 gap-0.5">
-                <Text variant="label">{user.email ?? 'No email added'}</Text>
+                <Text variant="label">{displayEmail ?? 'No email added'}</Text>
                 <Text variant="meta">
-                  {user.email
+                  {displayEmail
                     ? 'Backup sign-in method'
                     : 'Optional backup if you change your phone number'}
                 </Text>
@@ -110,7 +126,9 @@ export default function ProfileScreen() {
             <Card className="flex-row items-center gap-3">
               <IconTile icon={Landmark} color={colors.brandMint} />
               <View className="flex-1 gap-0.5">
-                <Text variant="label">{user.county} County</Text>
+                <Text variant="label">
+                  {user.county ? `${user.county} County` : 'County not set'}
+                </Text>
                 <Text variant="meta">
                   Used only to show scam trends near you. We store the county, never your exact
                   location.
@@ -149,6 +167,36 @@ export default function ProfileScreen() {
             </View>
           </View>
         ) : null}
+
+        <View>
+          <SectionLabel label="Session" />
+          <View className="gap-3 px-5">
+            <Card className="gap-3">
+              <View className="flex-row items-center gap-3">
+                <IconTile icon={Smartphone} color={colors.brandTeal} />
+                <View className="flex-1 gap-0.5">
+                  <Text variant="label">
+                    {sessionToken ? 'Signed in with Dhibiti Cloud' : 'Signed in on this device only'}
+                  </Text>
+                  <Text variant="meta">
+                    {sessionToken
+                      ? 'Your checks, reports and circle alerts sync once you are online.'
+                      : 'Sign in with your phone number to report scams and sync your circle.'}
+                  </Text>
+                </View>
+              </View>
+              {sessionToken ? (
+                <GhostButton
+                  label={signingOut ? 'Signing out…' : 'Sign out'}
+                  disabled={signingOut}
+                  onPress={signOut}
+                />
+              ) : (
+                <GhostButton label="Sign in" onPress={() => router.push('/onboarding/auth')} />
+              )}
+            </Card>
+          </View>
+        </View>
 
         <View>
           <SectionLabel label="Where your information lives" />

@@ -5,18 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Text } from 'heroui-native';
 
-/**
- * Install affordance for the PWA, web only:
- * - Android/Chrome: captures `beforeinstallprompt` and shows an "Install" button
- *   that triggers the native install prompt.
- * - iOS/Safari: no programmatic prompt exists, so shows a one-time
- *   "Share → Add to Home Screen" hint (dismissal persisted).
- *
- * Hidden when already installed (standalone display mode) and inside iframes
- * (live previews embed the app in one).
- */
-
-// Chrome's install event — not yet in lib.dom.
+// Install Prompt
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -32,12 +21,12 @@ const IOS_HINT_DISMISSED_KEY = 'pwa-ios-install-hint-dismissed';
 
 function isEligibleBrowserContext(): boolean {
   if (Platform.OS !== 'web' || typeof window === 'undefined') return false;
-  // Already installed / running standalone (navigator.standalone is iOS-only).
+
   const standalone =
     window.matchMedia('(display-mode: standalone)').matches ||
     Reflect.get(navigator, 'standalone') === true;
   if (standalone) return false;
-  // Embedded (e.g. a live preview iframe) — installing isn't possible there.
+
   if (window.self !== window.top) return false;
   return true;
 }
@@ -46,7 +35,7 @@ function isIosSafari(): boolean {
   const ua = navigator.userAgent;
   const isIos =
     /iPad|iPhone|iPod/.test(ua) ||
-    // iPadOS 13+ masquerades as macOS but is touch-capable.
+   
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   return isIos && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
 }

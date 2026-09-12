@@ -26,6 +26,7 @@ export default function PayLog() {
   const markPaid = useStore((state) => state.markPaid);
   const abandonPayment = useStore((state) => state.abandonPayment);
   const addSafetyEvent = useStore((state) => state.addSafetyEvent);
+  const lessons = useStore((state) => state.lessons);
 
   const [note, setNote] = useState('');
   const [logged, setLogged] = useState(false);
@@ -124,7 +125,15 @@ export default function PayLog() {
         secondaryLabel="See how to verify a merchant"
         onSecondary={() => {
           setLogged(false);
-          router.push({ pathname: '/lesson/[id]', params: { id: 'lesson-merchant-checks' } });
+          const lesson =
+            lessons.find((item) => item.category === 'banks-merchants') ??
+            lessons.find((item) => item.category === 'mobile-money') ??
+            lessons[0];
+          if (lesson) {
+            router.push({ pathname: '/lesson/[id]', params: { id: lesson.id } });
+          } else {
+            router.push('/more/literacy');
+          }
         }}
       />
     </Screen>

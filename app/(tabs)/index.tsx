@@ -118,7 +118,7 @@ export default function HomeTab() {
     <Screen>
       <View className="flex-row items-center gap-3 px-5 pt-2 pb-4">
         <View className="flex-1">
-          <Text variant="title">Hi, {user.name.split(' ')[0]}</Text>
+          <Text variant="title">Hi, {user.name.split(' ')[0] || 'there'}</Text>
           <Text variant="caption">Stay alert. Stay protected.</Text>
         </View>
         <ThemeToggle />
@@ -238,7 +238,7 @@ export default function HomeTab() {
           <View>
             <SectionLabel
               label="Scam radar"
-              right={<LocationChip label={`Near ${user.county}`} />}
+              right={<LocationChip label={user.county ? `Near ${user.county}` : 'Kenya'} />}
             />
             <View className="gap-3 px-5">
               {localRadar.map((event) => (

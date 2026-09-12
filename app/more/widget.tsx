@@ -8,7 +8,7 @@ import { IconTile } from '@/components/ui/IconTile';
 import { LinearGradient } from '@/components/ui/primitives/LinearGradient';
 import { Screen, ScreenHeader, ScreenScroll, SectionLabel } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
-import { brandGradient, colors } from '@/lib/theme';
+import { brandGradient, colors, onGradient } from '@/lib/theme';
 
 const STEPS: { title: string; body: string }[] = [
   {
@@ -56,7 +56,7 @@ export default function WidgetSetup() {
               end={{ x: 1, y: 1 }}
               className="flex-row items-center justify-center gap-1.5 rounded-full py-2.5"
             >
-              <ClipboardPaste color="#08231D" size={15} strokeWidth={2} />
+              <ClipboardPaste color={onGradient} size={15} strokeWidth={2} />
               <Text variant="label" className="text-ink text-[13px]">
                 Paste & Check
               </Text>
@@ -69,7 +69,7 @@ export default function WidgetSetup() {
           <View className="flex-row items-center justify-between">
             <View className="flex-row items-center gap-2">
               <IconTile icon={Smartphone} color={colors.brandTeal} size="sm" />
-              <Text variant="meta">Dhibiti · Verify. Protect. Control.</Text>
+              <Text variant="meta">Dhibiti · Check before you act</Text>
             </View>
           </View>
           <Text variant="label">Something feels off? Check it first.</Text>
@@ -80,7 +80,7 @@ export default function WidgetSetup() {
               end={{ x: 1, y: 1 }}
               className="flex-1 flex-row items-center justify-center gap-1.5 rounded-full py-3"
             >
-              <ClipboardPaste color="#08231D" size={16} strokeWidth={2} />
+              <ClipboardPaste color={onGradient} size={16} strokeWidth={2} />
               <Text variant="label" className="text-ink text-[13px]">
                 Paste & Check
               </Text>

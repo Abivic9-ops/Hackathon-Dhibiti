@@ -55,7 +55,11 @@ export default function RadarScreen() {
     <Screen>
       <ScreenHeader
         title="Scam radar"
-        subtitle={`What people near ${user.county} are reporting`}
+        subtitle={
+          user.county
+            ? `What people near ${user.county} are reporting`
+            : 'What people across Kenya are reporting'
+        }
         backFallback="/(tabs)"
       />
 

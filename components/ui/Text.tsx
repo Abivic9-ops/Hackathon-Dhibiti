@@ -63,12 +63,18 @@ function localise(children: ReactNode, language: Language): ReactNode {
   });
 }
 
+const HEADING_VARIANTS: ReadonlySet<TextVariant> = new Set(['display', 'title', 'heading']);
+
 export function Text({ variant = 'body', className, verbatim, children, ...rest }: Props) {
   const language = useStore((state) => state.language);
   const content = verbatim ? children : localise(children, language);
 
   return (
-    <RNText className={cn(VARIANTS[variant], className)} {...rest}>
+    <RNText
+      className={cn(VARIANTS[variant], className)}
+      accessibilityRole={HEADING_VARIANTS.has(variant) ? 'header' : undefined}
+      {...rest}
+    >
       {content}
     </RNText>
   );

@@ -57,6 +57,7 @@ export default function ReportNew() {
 
   const submitReport = useStore((state) => state.submitReport);
   const simulateOffline = useStore((state) => state.simulateOffline);
+  const lessons = useStore((state) => state.lessons);
   const [type, setType] = useState<CheckType>(params.type ?? 'sms');
   const [category, setCategory] = useState<ScamCategory>(
     params.scamCategory && params.scamCategory !== 'none' ? params.scamCategory : 'mpesa-reversal',
@@ -187,7 +188,13 @@ export default function ReportNew() {
         primaryLabel="See how reports help (1 min)"
         onPrimary={() => {
           setDone(false);
-          router.replace({ pathname: '/lesson/[id]', params: { id: 'lesson-reports-help' } });
+          const lesson =
+            lessons.find((item) => item.category === 'rights-recourse') ?? lessons[0];
+          if (lesson) {
+            router.replace({ pathname: '/lesson/[id]', params: { id: lesson.id } });
+          } else {
+            router.replace('/more/literacy');
+          }
         }}
         secondaryLabel="Done"
         onSecondary={() => goBackOrReplace('/(tabs)/shield')}

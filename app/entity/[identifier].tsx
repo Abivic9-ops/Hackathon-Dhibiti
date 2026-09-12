@@ -37,7 +37,8 @@ export default function EntityResult() {
   const level = institution ? 'blue' : (entity?.riskLevel ?? 'grey');
   const lesson =
     lessons.find((item) => item.relatedScamCategory === entity?.scamCategory) ??
-    lessons.find((item) => item.id === 'lesson-paybill-basics');
+    lessons.find((item) => item.category === 'mobile-money') ??
+    lessons[0];
 
   const summary = institution
     ? `This is a published official number for ${institution.name}.`

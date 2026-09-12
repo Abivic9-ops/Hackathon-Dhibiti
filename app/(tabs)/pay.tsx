@@ -22,10 +22,20 @@ export default function PayTab() {
   const recipients = useStore((state) => state.recipients);
   const payments = useStore((state) => state.payments);
   const tips = useStore((state) => state.tips);
+  const lessons = useStore((state) => state.lessons);
   const simulateOffline = useStore((state) => state.simulateOffline);
 
   const pending = payments.filter((payment) => payment.status === 'pending');
   const paid = payments.filter((payment) => payment.status === 'paid');
+
+  function openTipLesson(tip: (typeof tips)[number]) {
+    const lesson = lessons.find((item) => item.category === tip.lessonCategory) ?? lessons[0];
+    if (lesson) {
+      router.push({ pathname: '/lesson/[id]', params: { id: lesson.id } });
+    } else {
+      router.push('/more/literacy');
+    }
+  }
 
   return (
     <Screen>
@@ -174,19 +184,12 @@ export default function PayTab() {
               <PressableCard
                 key={tip.id}
                 className="w-64 gap-2"
-                onPress={() =>
-                  router.push({ pathname: '/lesson/[id]', params: { id: tip.lessonId } })
-                }
+                onPress={() => openTipLesson(tip)}
               >
                 <IconTile icon={ShieldCheck} color={colors.brandMint} size="sm" />
                 <Text variant="label">{tip.title}</Text>
                 <Text variant="caption">{tip.body}</Text>
-                <InlineAction
-                  label="Read the lesson"
-                  onPress={() =>
-                    router.push({ pathname: '/lesson/[id]', params: { id: tip.lessonId } })
-                  }
-                />
+                <InlineAction label="Read the lesson" onPress={() => openTipLesson(tip)} />
               </PressableCard>
             ))}
           </ScrollView>

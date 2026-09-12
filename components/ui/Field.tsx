@@ -2,7 +2,7 @@ import { Check, ChevronDown, Info, type LucideIcon } from 'lucide-react-native';
 import { Pressable, Switch, TextInput, View } from 'react-native';
 
 import { Text, useTranslate } from '@/components/ui/Text';
-import { colors } from '@/lib/theme';
+import { colors, onGradient } from '@/lib/theme';
 import { cn } from '@/lib/utils';
 
 type FieldProps = {
@@ -102,7 +102,7 @@ export function ChipSelector<T extends string>({
             )}
           >
             {Icon ? (
-              <Icon color={active ? '#08231D' : colors.muted} size={15} strokeWidth={2} />
+              <Icon color={active ? onGradient : colors.muted} size={15} strokeWidth={2} />
             ) : null}
             <Text variant="label" className={cn('text-[13px]', active ? 'text-ink' : 'text-muted')}>
               {option.label}
@@ -151,7 +151,7 @@ export function OptionRow({
           selected ? 'border-brand-teal bg-brand-teal' : 'border-border',
         )}
       >
-        {selected ? <Check color="#08231D" size={14} strokeWidth={2.5} /> : null}
+        {selected ? <Check color={onGradient} size={14} strokeWidth={2.5} /> : null}
       </View>
     </Pressable>
   );
@@ -210,7 +210,7 @@ export function CheckboxRow({
           value ? 'border-brand-teal bg-brand-teal' : 'border-border bg-surface',
         )}
       >
-        {value ? <Check color="#08231D" size={15} strokeWidth={2.5} /> : null}
+        {value ? <Check color={onGradient} size={15} strokeWidth={2.5} /> : null}
       </View>
       <Text variant="body" className="flex-1">
         {label}

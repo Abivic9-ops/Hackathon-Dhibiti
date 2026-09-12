@@ -80,10 +80,11 @@ export default function MoreTab() {
             <IconTile icon={UserRound} color={colors.brandBlue} size="lg" />
             <View className="flex-1 gap-1">
               <Text variant="heading" numberOfLines={1}>
-                {user.name}
+                {user.name || 'My profile'}
               </Text>
               <Text variant="meta">
-                {user.phone} · {user.county}
+                {[user.name ? user.phone : null, user.county].filter(Boolean).join('  ·  ') ||
+                  'Your details stay on this device'}
               </Text>
               <Text variant="meta" className="text-brand-teal">
                 {ROLE_LABEL[user.role]}
